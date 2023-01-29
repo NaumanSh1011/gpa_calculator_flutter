@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator/Widgets/semester_unit.dart';
+import 'package:toast/toast.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    ToastContext().init(context);
   }
 
   @override
@@ -91,7 +93,10 @@ class _HomeState extends State<Home> {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                if (placeholder == 0) return;
+                if (placeholder == 0) {
+                  Toast.show("Semester cannot be 0", duration: Toast.lengthLong, gravity:  Toast.bottom);
+                  return;
+                }
                 Navigator.pushNamed(context, '/results', arguments: {
                   'semesters': placeholder,
                   'semesterController': semesterController,
