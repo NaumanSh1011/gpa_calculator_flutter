@@ -12,11 +12,11 @@ class _HomeState extends State<Home> {
   final semesters = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   int placeholder = 0;
   late List<TextEditingController> semesterController;
+  late List<TextEditingController> creditController;
 
   @override
   void initState() {
     super.initState();
-    semesterController = List.generate(8, (index) => TextEditingController(), growable: false);
   }
 
   @override
@@ -57,6 +57,11 @@ class _HomeState extends State<Home> {
                   onChanged: (semester){
                     setState(() {
                       placeholder = semester as int;
+                      semesterController = List.generate(placeholder, (
+                            index) => TextEditingController(), growable: false);
+                      creditController = List.generate(placeholder, (index) =>
+                            TextEditingController(), growable: false);
+
                     });
                   },
                   value: placeholder == 0 ? null : placeholder,
@@ -76,7 +81,7 @@ class _HomeState extends State<Home> {
                   itemCount: placeholder,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: SemesterUnit(semesterController: semesterController, index: index),
+                      title: SemesterUnit(semesterController: semesterController, creditController: creditController, index: index),
                       enabled: false,
                       onTap: () {},
                     );
@@ -90,6 +95,7 @@ class _HomeState extends State<Home> {
                 Navigator.pushNamed(context, '/results', arguments: {
                   'semesters': placeholder,
                   'semesterController': semesterController,
+                  'creditController': creditController,
                 });
               },
               child: const Text('Get Results'),

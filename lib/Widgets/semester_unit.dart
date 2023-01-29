@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-//ignore: must_be_immutable
+// ignore: must_be_immutable
 class SemesterUnit extends StatefulWidget {
-  int index;
   SemesterUnit({
     Key? key,
     required this.semesterController,
+    required this.creditController,
     required this.index,
   }) : super(key: key);
 
-  final List<TextEditingController> semesterController;
+  List<TextEditingController> semesterController;
+  List<TextEditingController> creditController;
+  int index;
 
   @override
   State<SemesterUnit> createState() => _SemesterUnitState();
@@ -26,6 +28,11 @@ class _SemesterUnitState extends State<SemesterUnit> {
         Expanded(
           child: TextField(
             controller: widget.semesterController[widget.index],
+            onEditingComplete: () {
+              if (widget.semesterController[widget.index].text.isEmpty) {
+                widget.semesterController[widget.index].text = '';
+              }
+            },
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
@@ -39,6 +46,12 @@ class _SemesterUnitState extends State<SemesterUnit> {
         const SizedBox(width: 10),
         Expanded(
           child: TextField(
+            controller: widget.creditController[widget.index],
+            onEditingComplete: () {
+              if (widget.creditController[widget.index].text.isEmpty) {
+                widget.creditController[widget.index].text = '';
+              }
+            },
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             decoration: const InputDecoration(
