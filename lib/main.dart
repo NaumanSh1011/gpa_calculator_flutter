@@ -9,8 +9,8 @@ void main() {
     routes: {
       '/': (context) => const Home(),
       '/semesters': (context) => const Semesters(),
-      '/calculator': (context) => const Results(),
-      '/results': (context) => const Calculator(),
+      '/calculator': (context) => const Calculator(),
+      '/results': (context) => const Results(),
       '/criteria': (context) => const Placeholder(),
     }
   ));

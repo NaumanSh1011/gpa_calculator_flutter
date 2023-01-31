@@ -10,6 +10,14 @@ class Calculator extends StatefulWidget {
 class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    Map data = ModalRoute.of(context)!.settings.arguments as Map;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('GPA Calculator'),
+      ),
+      body: Center(
+        child: Text('Semesters ${data['semester']}'),
+      ),
+    );
   }
 }

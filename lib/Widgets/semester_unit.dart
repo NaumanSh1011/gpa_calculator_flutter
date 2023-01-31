@@ -62,10 +62,15 @@ class _SemesterUnitState extends State<SemesterUnit> {
         ),
         const SizedBox(width: 10),
         ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/calculator', arguments: {
+          onPressed: () async {
+            var results = await Navigator.pushNamed(context, '/calculator', arguments: {
               'semester': widget.index + 1,
             });
+            if (results != null) {
+              Map data = results as Map;
+              widget.semesterController[widget.index].text = data['gpa'];
+              widget.creditController[widget.index].text = data['credit'];
+            }
           },
           child: const Text("Calculate"),
         ),
