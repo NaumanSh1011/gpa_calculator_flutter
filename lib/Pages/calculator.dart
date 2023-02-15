@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gpa_calculator/Widgets/course_unit.dart';
+import 'package:gpa_calculator/Widgets/course_widget.dart';
 import 'package:toast/toast.dart';
 
 class Calculator extends StatefulWidget {
@@ -56,7 +56,7 @@ class _CalculatorState extends State<Calculator> {
                     return ListTile(
                       enabled: false,
                       onTap: () {},
-                      title: CourseUnit(index: index),
+                      title: CourseWidget(index: index),
                     );
                   }),
             ),

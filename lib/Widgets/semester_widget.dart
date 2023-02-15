@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // ignore: must_be_immutable
-class SemesterUnit extends StatefulWidget {
-  SemesterUnit({
+class SemesterWidget extends StatefulWidget {
+  SemesterWidget({
     Key? key,
     required this.semesterController,
     required this.creditController,
@@ -15,10 +15,10 @@ class SemesterUnit extends StatefulWidget {
   int index;
 
   @override
-  State<SemesterUnit> createState() => _SemesterUnitState();
+  State<SemesterWidget> createState() => _SemesterWidgetState();
 }
 
-class _SemesterUnitState extends State<SemesterUnit> {
+class _SemesterWidgetState extends State<SemesterWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(

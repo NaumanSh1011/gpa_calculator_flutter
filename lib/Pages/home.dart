@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gpa_calculator/Widgets/semester_unit.dart';
+import 'package:gpa_calculator/Widgets/semester_widget.dart';
 import 'package:toast/toast.dart';
 
 class Home extends StatefulWidget {
@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
                   itemCount: placeholder,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: SemesterUnit(semesterController: semesterController, creditController: creditController, index: index),
+                      title: SemesterWidget(semesterController: semesterController, creditController: creditController, index: index),
                       enabled: false,
                       onTap: () {},
                     );

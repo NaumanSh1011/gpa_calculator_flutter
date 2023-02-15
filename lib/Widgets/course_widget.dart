@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class CourseUnit extends StatefulWidget {
-  const CourseUnit({Key? key, required this.index}) : super(key: key);
+class CourseWidget extends StatefulWidget {
+  const CourseWidget({Key? key, required this.index}) : super(key: key);
 
   final int index;
   @override
-  State<CourseUnit> createState() => _CourseUnitState();
+  State<CourseWidget> createState() => _CourseWidgetState();
 }
 
-class _CourseUnitState extends State<CourseUnit> {
+class _CourseWidgetState extends State<CourseWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
