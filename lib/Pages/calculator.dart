@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gpa_calculator/Widgets/course_unit.dart';
 import 'package:toast/toast.dart';
 
 class Calculator extends StatefulWidget {
@@ -9,6 +10,9 @@ class Calculator extends StatefulWidget {
 }
 
 class _CalculatorState extends State<Calculator> {
+  double gpa = 0.0;
+  bool isCalculated = false;
+
   @override
   void initState() {
     super.initState();
@@ -25,9 +29,8 @@ class _CalculatorState extends State<Calculator> {
     } else {
       buttonText = 'Next';
     }
-    double gpa = 0.0;
     int creditHours = 0;
-    bool isCalculated = false;
+    String gpaString = (gpa == 0.0 && !isCalculated)? "" : gpa.toStringAsFixed(2);
     return Scaffold(
       appBar: AppBar(
         title: Text('GPA Calculator for Semester $current'),
@@ -38,7 +41,7 @@ class _CalculatorState extends State<Calculator> {
           children: [
             Center(
               child: Text(
-                'GPA: ${gpa.toStringAsFixed(2)}',
+                'GPA: $gpaString',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -53,7 +56,7 @@ class _CalculatorState extends State<Calculator> {
                     return ListTile(
                       enabled: false,
                       onTap: () {},
-                      title: Text('Course ${index + 1}'),
+                      title: CourseUnit(index: index),
                     );
                   }),
             ),
@@ -64,6 +67,10 @@ class _CalculatorState extends State<Calculator> {
                 ElevatedButton(
                   onPressed: () {
                     isCalculated = true;
+                    setState(() {
+                      //Logic will be implemented later
+                      gpa = 3.5;
+                    });
                   },
                   child: const Text('Calculate'),
                 ),
