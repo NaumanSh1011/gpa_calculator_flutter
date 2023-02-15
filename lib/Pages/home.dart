@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/semesters');
+                Navigator.pushNamed(context, '/criteria');
               },
               child: const Text('Define Grading Criteria'),
             ),
