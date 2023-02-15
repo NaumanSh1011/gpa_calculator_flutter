@@ -64,7 +64,8 @@ class _SemesterUnitState extends State<SemesterUnit> {
         ElevatedButton(
           onPressed: () async {
             var results = await Navigator.pushNamed(context, '/calculator', arguments: {
-              'semester': widget.index + 1,
+              'totalSemester': widget.semesterController.length,
+              'currentSemester': widget.index + 1,
             });
             if (results != null) {
               Map data = results as Map;
