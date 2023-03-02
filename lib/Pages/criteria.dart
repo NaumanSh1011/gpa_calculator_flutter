@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gpa_calculator/Classes/criteria_unit.dart';
+import 'dart:convert';
 
 class Criteria extends StatefulWidget {
   const Criteria({Key? key}) : super(key: key);
@@ -8,7 +10,8 @@ class Criteria extends StatefulWidget {
 }
 
 class _CriteriaState extends State<Criteria> {
-  int count = 0;
+  List<CriteriaUnit> criteria = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +25,7 @@ class _CriteriaState extends State<Criteria> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  count = 0;
+                  criteria = [];
                 });
               },
               child: const Text('Clear'),
@@ -30,12 +33,12 @@ class _CriteriaState extends State<Criteria> {
             const SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
-                itemCount: count,
+                itemCount: criteria.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     enabled: false,
                     onTap: () {},
-                    title: const Text('Placeholder'),
+                    title: Text(jsonEncode(criteria[index].toJson())),
                   );
                 },
               ),
@@ -43,7 +46,12 @@ class _CriteriaState extends State<Criteria> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  count++;
+                  if(criteria.isEmpty) {
+                    criteria.add(CriteriaUnit(lowerLimit: 85, gradePoints: 4.0, isDistributed: false));
+                  }
+                  else if(criteria.length == 1){
+                    criteria.add(CriteriaUnit(lowerLimit: 80, gradePoints: 3.7, isDistributed: false));
+                  }
                 });
               },
               child: const Text('Add'),
