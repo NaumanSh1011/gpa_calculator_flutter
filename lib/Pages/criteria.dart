@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator/Classes/criteria_unit.dart';
-import 'dart:convert';
+import 'package:gpa_calculator/Widgets/criteria_widget.dart';
 
 class Criteria extends StatefulWidget {
   const Criteria({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class _CriteriaState extends State<Criteria> {
         title: const Text('GPA Criteria'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 2),
         child: Column(
           children: [
             ElevatedButton(
@@ -38,7 +38,28 @@ class _CriteriaState extends State<Criteria> {
                   return ListTile(
                     enabled: false,
                     onTap: () {},
-                    title: Text(jsonEncode(criteria[index].toJson())),
+                    title: CriteriaWidget(
+                      index: index,
+                      gradeController: List.generate(
+                        criteria.length,
+                            (index) => TextEditingController(),
+                        growable: true,
+                      ),
+                      limitController: List.generate(
+                        criteria.length,
+                            (index) => TextEditingController(),
+                        growable: true,
+                      ),
+                      criteria: criteria,
+                    ),
+                    trailing: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          criteria.removeAt(index);
+                        });
+                      },
+                      icon: const Icon(Icons.delete),
+                    )
                   );
                 },
               ),
