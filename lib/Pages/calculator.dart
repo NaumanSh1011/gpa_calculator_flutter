@@ -12,11 +12,19 @@ class Calculator extends StatefulWidget {
 class _CalculatorState extends State<Calculator> {
   double gpa = 0.0;
   bool isCalculated = false;
+  int creditHours = 0;
+
+  late List<TextEditingController> courseController;
+  late List<TextEditingController> creditController;
 
   @override
   void initState() {
     super.initState();
     ToastContext().init(context);
+    courseController = List.generate(9, (
+        index) => TextEditingController(), growable: false);
+    creditController = List.generate(9, (index) =>
+        TextEditingController(), growable: false);
   }
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,6 @@ class _CalculatorState extends State<Calculator> {
     } else {
       buttonText = 'Next';
     }
-    int creditHours = 0;
     String gpaString = (gpa == 0.0 && !isCalculated)? "" : gpa.toStringAsFixed(2);
     return Scaffold(
       appBar: AppBar(
@@ -51,12 +58,12 @@ class _CalculatorState extends State<Calculator> {
             const SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
-                  itemCount: 8,
+                  itemCount: 9,
                   itemBuilder: (context, index) {
                     return ListTile(
                       enabled: false,
                       onTap: () {},
-                      title: CourseWidget(index: index),
+                      title: CourseWidget(index: index, courseController: courseController, creditController: creditController),
                     );
                   }),
             ),
@@ -67,9 +74,37 @@ class _CalculatorState extends State<Calculator> {
                 ElevatedButton(
                   onPressed: () {
                     isCalculated = true;
+                    double gp = 0.0;
+                    int credits = 0;
+                    for(int i = 0; i < 9; i++){
+                      if(courseController[i].text.isNotEmpty && creditController[i].text.isNotEmpty){
+                        credits += int.parse(creditController[i].text);
+                        gp += double.parse(courseController[i].text) * int.parse(creditController[i].text);
+                      }
+                      else if(courseController[i].text.isNotEmpty && creditController[i].text.isEmpty) {
+                        Toast.show('Please enter credit hours for course ${i+1}', duration: Toast.lengthLong, gravity:  Toast.bottom);
+                        isCalculated = false;
+                        credits = 0;
+                        break;
+                      }
+                      else if(courseController[i].text.isEmpty && creditController[i].text.isNotEmpty) {
+                        Toast.show('Please enter course grade for course ${i+1}', duration: Toast.lengthLong, gravity:  Toast.bottom);
+                        isCalculated = false;
+                        credits = 0;
+                        break;
+                      }
+                      else {
+                        continue;
+                      }
+                    }
                     setState(() {
-                      //Logic will be implemented later
-                      gpa = 3.5;
+                      creditHours = credits;
+                      if(credits > 0) {
+                        gpa = gp / credits;
+                      }
+                      else {
+                        gpa = 0.0;
+                      }
                     });
                   },
                   child: const Text('Calculate'),
@@ -79,7 +114,7 @@ class _CalculatorState extends State<Calculator> {
                   onPressed: () {
                     if(isCalculated && creditHours > 0){
                       isCalculated = false;
-                      //Navigator.pushNamed(context, '/results');
+                      Navigator.pop(context, {'gpa': gpaString, 'credit': creditHours.toString()});
                     }
                     else {
                       Toast.show('Please calculate GPA first', duration: Toast.lengthLong, gravity:  Toast.bottom);
