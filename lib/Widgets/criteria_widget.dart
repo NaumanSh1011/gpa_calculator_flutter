@@ -30,7 +30,7 @@ class _CriteriaWidgetState extends State<CriteriaWidget> {
         Opacity(
           opacity: widget.index == 0 ? 0 : 1,
           child: Checkbox(
-            value: false,
+            value: widget.criteria[widget.index].isDistributed,
             onChanged: (bool? value) {
               setState(() {
                 widget.criteria[widget.index].isDistributed = value!;
