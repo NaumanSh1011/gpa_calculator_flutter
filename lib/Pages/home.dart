@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator/Widgets/semester_widget.dart';
 import 'package:toast/toast.dart';
@@ -48,12 +49,11 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Semesters: '),
-                DropdownButton(
+                DropdownButton2(
                   items: semesters.map((semester) {
                     return DropdownMenuItem(
                       value: semester,
-                      child: Text("$semester"),
+                      child: Text(semester == 0?"Choose semester":"Semesters: $semester"),
                     );
                   }).toList(),
                   onChanged: (semester){
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
 
                     });
                   },
-                  value: placeholder == 0 ? null : placeholder,
+                  value: placeholder,
                 ),
               ],
             ),
